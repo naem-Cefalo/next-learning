@@ -1,0 +1,37 @@
+.myClass .ant-collapse-header {
+  padding: 0 !important;
+}
+
+.myClass .ant-collapse-content-box {
+  padding: 0 !important;
+}
+
+tr {
+  vertical-align: top !important;
+}
+
+.custom-radio-tab .custom-radio {
+  border: unset !important;
+  border-radius: unset !important;
+}
+
+.custom-radio-tab .ant-radio-button-wrapper-checked {
+  border-bottom: 1px solid #1890ff;
+}
+
+.custom-radio-tab :where(.css-dev-only-do-not-override-veptm5)
+.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
+  background-color: unset !important;
+}
+
+.custom-radio-tab :where(.css-dev-only-do-not-override-veptm5).ant-radio-button-wrapper:not(:first-child)::before {
+  background-color: unset !important;
+}
+
+.custom-radio-tab :where(.css-dev-only-do-not-override-veptm5).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+  border-bottom: 1px solid #1677ff!important;
+}
+
+.custom-radio-tab :where(.css-dev-only-do-not-override-veptm5).ant-radio-button-wrapper:not(:first-child)::before {
+  background-color: unset!important;
+}
