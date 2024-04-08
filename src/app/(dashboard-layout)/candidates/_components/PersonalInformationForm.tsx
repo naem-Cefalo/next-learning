@@ -21,7 +21,6 @@ import {
 import { UploadOutlined } from '@ant-design/icons';
 import { useQuery } from '@tanstack/react-query';
 import getData from '../_api/getData';
-import dayjs from 'dayjs';
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -175,6 +174,10 @@ function PersonalInformationForm() {
             }}>
             <ImgCrop aspect={400 / 400}>
               <Upload
+                // withCredentials
+                headers={{
+                  Authorization: 'test ats',
+                }}
                 onPreview={handlePreview}
                 onChange={handleChange}
                 beforeUpload={beforeUpload}
@@ -211,6 +214,10 @@ function PersonalInformationForm() {
             rules={[{ required: true, message: 'Resume required' }]}
             name="resume">
             <Upload.Dragger
+              // withCredentials
+              headers={{
+                Authorization: 'test ats',
+              }}
               onChange={handlePdfUpload}
               rootClassName="uploadCv"
               action={uploadUrl('pdf')}
@@ -226,10 +233,18 @@ function PersonalInformationForm() {
                 style={{
                   height: '70px',
                 }}>
-                <UploadOutlined />
-                <Typography.Text className="ant-upload-text">
-                  Drag or Upload Your Resume/CV
-                </Typography.Text>
+                <Flex vertical>
+                  <Typography.Text className="ant-upload-text">
+                    <UploadOutlined /> Drag or Upload Your Resume/CV
+                  </Typography.Text>
+                  <Typography.Text
+                    style={{
+                      fontSize: '12px',
+                    }}
+                    className="ant-upload-text">
+                    PDF file. Upto 1024 KB.
+                  </Typography.Text>
+                </Flex>
               </Flex>
             </Upload.Dragger>
           </Form.Item>
@@ -268,20 +283,11 @@ function PersonalInformationForm() {
                 required: true,
               },
               {
-                validator: (_, value) => {
-                  if (Number.isInteger(Number(value))) {
-                    if (value.length > 10) {
-                      return Promise.reject(
-                        new Error('Phone number must be 10 digit')
-                      );
-                    }
-                    return Promise.resolve();
-                  } else {
-                    return Promise.reject(
-                      new Error('Phone number not a valid integer')
-                    );
-                  }
-                },
+                max: 10,
+              },
+              {
+                type: 'integer',
+                transform: (value) => Number(value),
               },
             ]}>
             <Input prefix="+880" style={{ width: '100%' }} />

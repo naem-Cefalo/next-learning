@@ -17,7 +17,8 @@ function DatePickerToField({ name }: Prop) {
   const form = Form.useFormInstance();
   const [checkCurrentWork, setCheckCurrentWork] = useState(false);
 
-  const [fromDateValue, setFromDateValue] = useState<Dayjs>();
+  const [fromDateValue, setFromDateValue] = useState<Dayjs | null>();
+  const [toDateValue, setToDateValue] = useState<Dayjs | null>(dayjs());
 
   const onCheckboxChange = (e: { target: { checked: boolean } }) => {
     setCheckCurrentWork(e.target.checked);
@@ -34,14 +35,22 @@ function DatePickerToField({ name }: Prop) {
   };
 
   const disabledDate: RangePickerProps['disabledDate'] = (current) => {
-    // Can not select days before today and today
     return current && current > dayjs().endOf('day');
   };
 
   return (
     <Row gutter={50} align="middle">
       <Col md={12} xs={24}>
-        <Form.Item name={!!name ? [name, `from`] : 'from'} label="From">
+        <Form.Item
+          name={!!name ? [name, `from`] : 'from'}
+          label="From"
+          rules={[
+            {
+              validator(rule, value, callback) {
+                return Promise.resolve();
+              },
+            },
+          ]}>
           <DatePicker
             disabledDate={disabledDate}
             onChange={(value) => setFromDateValue(value)}
@@ -60,10 +69,31 @@ function DatePickerToField({ name }: Prop) {
             span: '24',
           }}
           name={!!name ? [name, `till`] : 'till'}
-          label="To">
+          label="To"
+          rules={[
+            {
+              validator(rule, value, callback) {
+                console.log(fromDateValue);
+
+                if (!fromDateValue) {
+                  form.setFields([
+                    {
+                      name: ['experience', name, `till`],
+                      value: '',
+                    },
+                  ]);
+                  return Promise.reject(
+                    Error('Please select starting date first')
+                  );
+                }
+                return Promise.resolve();
+              },
+            },
+          ]}>
           <DatePicker
+            onChange={(val) => setToDateValue(val)}
             disabledDate={disabledDate}
-            disabled={checkCurrentWork || !fromDateValue}
+            disabled={checkCurrentWork}
             type="text"
             placeholder="End Date"
             picker="month"
@@ -71,7 +101,7 @@ function DatePickerToField({ name }: Prop) {
               width: '100%',
             }}
             format={'MMM-YYYY'}
-            minDate={dayjs(fromDateValue, 'MMM-YYYY')}
+            minDate={dayjs(fromDateValue, MonthFormate)}
           />
         </Form.Item>
         <Form.Item

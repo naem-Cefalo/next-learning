@@ -48,7 +48,7 @@ function Portfolio() {
                         type: 'url',
                       },
                     ]}>
-                    <Input placeholder="Write url" />
+                    <Input placeholder="Write URL" />
                   </Form.Item>
                 </Col>
                 <Col md={12} sm={24} xs={24}>
@@ -60,7 +60,7 @@ function Portfolio() {
                         type: 'url',
                       },
                     ]}>
-                    <Input placeholder="Write url" />
+                    <Input placeholder="Write URL" />
                   </Form.Item>
                 </Col>
               </Row>
@@ -74,7 +74,7 @@ function Portfolio() {
                         type: 'url',
                       },
                     ]}>
-                    <Input placeholder="Write url" />
+                    <Input placeholder="Write URL" />
                   </Form.Item>
                 </Col>
                 <Col md={12} sm={24} xs={24}>
@@ -86,7 +86,7 @@ function Portfolio() {
                         type: 'url',
                       },
                     ]}>
-                    <Input placeholder="Write url" />
+                    <Input placeholder="Write URL" />
                   </Form.Item>
                 </Col>
               </Row>
@@ -105,8 +105,8 @@ function Portfolio() {
                           {!!index && <Divider />}
                           <Row gutter={50}>
                             <Col xs={24}>
-                              <Form.Item label="Other url" name={[name, 'url']}>
-                                <Input placeholder="Additional url"></Input>
+                              <Form.Item label="Other URL" name={[name, 'url']}>
+                                <Input placeholder="Additional URL"></Input>
                               </Form.Item>
                             </Col>
                           </Row>

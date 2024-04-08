@@ -8,8 +8,7 @@ import { createArrayFromTo } from '@/app/lib/utils';
 const years = createArrayFromTo(1955, new Date().getFullYear());
 
 function EducationInfoForm() {
-  const bachelorYear = Form.useWatch('bechelor_passing_year');
-  const HSCYear = Form.useWatch('passing_year_hsc_or_equivalent');
+  const from = Form.useFormInstance();
   return (
     <>
       <Row gutter={50}>
@@ -40,21 +39,11 @@ function EducationInfoForm() {
               {
                 required: true,
               },
-              {
-                validator: (_, value) => {
-                  if (value) {
-                    if (HSCYear >= value) {
-                      return Promise.reject(
-                        new Error('Bachelors should be getter then HSC')
-                      );
-                    } else Promise.resolve();
-                  } else {
-                    return Promise.reject(new Error('This field is required!'));
-                  }
-                },
-              },
             ]}>
             <Select
+              onSelect={(val) => {
+                from.validateFields(['passing_year_hsc_or_equivalent']);
+              }}
               allowClear
               showSearch
               options={years}
@@ -70,19 +59,21 @@ function EducationInfoForm() {
               {
                 required: true,
               },
-              {
-                validator: (_, value) => {
-                  if (value) {
-                    if (value >= bachelorYear) {
-                      return Promise.reject(
-                        new Error('HSC should be lower then Bachelor')
-                      );
-                    } else Promise.resolve();
-                  } else {
-                    return Promise.reject(new Error('Required'));
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (
+                    !value ||
+                    getFieldValue('bechelor_passing_year') > value
+                  ) {
+                    return Promise.resolve();
                   }
+                  return Promise.reject(
+                    new Error(
+                      'Bachelor passing year should be greater then HSC'
+                    )
+                  );
                 },
-              },
+              }),
             ]}>
             <Select
               allowClear

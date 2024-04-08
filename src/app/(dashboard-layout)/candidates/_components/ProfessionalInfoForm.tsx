@@ -36,6 +36,7 @@ function ProfessionalInfoForm() {
     return {
       value: item.id,
       label: item.name,
+      id: item.id,
     };
   });
 
@@ -71,6 +72,7 @@ function ProfessionalInfoForm() {
         </Col>
         <Col md={12} xs={24}>
           <Form.Item
+            tooltip="As an example if notice period is 1 month input should be 4"
             name="notice_period"
             label="Notice period of Current/Last employer"
             rules={[
@@ -78,11 +80,18 @@ function ProfessionalInfoForm() {
                 required: true,
                 message: 'Please input the number',
               },
+              {
+                type: 'integer',
+                message: 'Not a valid integer',
+              },
             ]}>
-            <Select
-              placeholder="Select notice period"
-              allowClear
-              options={noticePeriodOption}
+            <InputNumber
+              min={0}
+              addonAfter="Weeks"
+              style={{
+                width: '100%',
+              }}
+              placeholder="Input your notice period in week"
             />
           </Form.Item>
         </Col>
@@ -95,7 +104,7 @@ function ProfessionalInfoForm() {
             rules={[
               {
                 required: true,
-                message: 'Please input the skill',
+                message: 'This field is required',
               },
             ]}>
             <InputNumber
@@ -116,9 +125,11 @@ function ProfessionalInfoForm() {
               {
                 type: 'integer',
                 required: true,
+                message: 'This field is required',
               },
             ]}>
             <InputNumber
+              addonAfter="Years"
               min={0}
               style={{
                 width: '100%',

@@ -93,6 +93,8 @@ const CandidateCreateForm: React.FC = () => {
   ];
 
   const handleSubmit = () => {
+    console.log('sdf');
+
     form
       .validateFields()
       .then((value) => {
@@ -104,8 +106,6 @@ const CandidateCreateForm: React.FC = () => {
         value.expected_salary = value.expected_salary.toString();
         value.phone = `+880${value.phone}`;
         delete value.applied_at;
-
-        console.log(value);
 
         mutate(value, {
           onSuccess() {
@@ -128,17 +128,13 @@ const CandidateCreateForm: React.FC = () => {
     <Row justify="space-evenly" className="myClass">
       <Col xxl={19} xl={18} md={20} sm={22} xs={23}>
         <Form
+          scrollToFirstError
           colon={false}
           form={form}
           layout="vertical"
           initialValues={initialValues}
           onFinishFailed={(errorInfo) => {
-            console.log(errorInfo);
-
-            form.scrollToField(errorInfo.errorFields[0].name[0], {
-              behavior: 'smooth',
-              block: 'end',
-            });
+            console.log(errorInfo.values);
           }}
           onFinish={handleSubmit}>
           {steps.map((item, index) => {
