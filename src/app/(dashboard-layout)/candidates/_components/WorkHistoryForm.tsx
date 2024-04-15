@@ -66,7 +66,7 @@ function WorkHistoryForm() {
                                 <Form.Item
                                   name={[name, `position`]}
                                   label="Position">
-                                  <Input placeholder="Position of current employer"></Input>
+                                  <Input placeholder="Position of your employer"></Input>
                                 </Form.Item>
                               </Col>
                             </Row>

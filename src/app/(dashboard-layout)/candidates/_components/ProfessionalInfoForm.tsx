@@ -78,7 +78,7 @@ function ProfessionalInfoForm() {
             rules={[
               {
                 required: true,
-                message: 'Please input the number',
+                message: 'This field is required',
               },
               {
                 type: 'integer',

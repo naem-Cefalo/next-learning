@@ -67,7 +67,7 @@ function UniversityField({
                 option?.label?.toString().toLocaleLowerCase() ?? ''
               ).includes(input);
             }}
-            placeholder="Select"
+            placeholder="Select university"
             onChange={(value) => {
               onSelectChange(value, 'university');
             }}

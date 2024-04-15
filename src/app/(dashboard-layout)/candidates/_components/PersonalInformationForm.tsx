@@ -187,15 +187,19 @@ function PersonalInformationForm() {
                 action={uploadUrl('image')}
                 listType="picture-card">
                 {fileList.length >= 1 ? null : (
-                  <Button
-                    style={{
-                      border: 0,
-                      background: 'none',
-                      boxShadow: 'none',
-                    }}>
-                    <UploadOutlined />
-                    <p>400x400</p>
-                  </Button>
+                  <>
+                    <Flex vertical align="center">
+                      <UploadOutlined />
+                      <span>400x400</span>
+                      <Typography.Text
+                        style={{
+                          fontSize: '8px',
+                        }}
+                        className="ant-upload-text">
+                        Upto 1024 KB.
+                      </Typography.Text>
+                    </Flex>
+                  </>
                 )}
               </Upload>
             </ImgCrop>

@@ -28,7 +28,7 @@ function EducationInfoForm() {
                 message: 'Please input the degree',
               },
             ]}>
-            <Input placeholder="CSE,EEE,etc.." />
+            <Input placeholder="Example: CSE,EEE" />
           </Form.Item>
         </Col>
         <Col md={12} sm={24} xs={24}>
@@ -38,6 +38,7 @@ function EducationInfoForm() {
             rules={[
               {
                 required: true,
+                message: 'Passing year is required',
               },
             ]}>
             <Select
@@ -58,6 +59,7 @@ function EducationInfoForm() {
             rules={[
               {
                 required: true,
+                message: 'Passing year is required',
               },
               ({ getFieldValue }) => ({
                 validator(_, value) {
