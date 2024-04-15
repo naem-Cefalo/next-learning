@@ -381,7 +381,7 @@ const CandidatePage = () => {
       render: (text: { $d: string }) => {
         return (
           <Typography.Text>
-            {dayjs(text.$d).format('DD/MM/YYYY')}
+            {dayjs(text.$d).format('DD MMM YYYY')}
           </Typography.Text>
         );
       },

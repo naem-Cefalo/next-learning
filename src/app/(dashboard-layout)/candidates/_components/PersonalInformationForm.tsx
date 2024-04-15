@@ -336,7 +336,7 @@ function PersonalInformationForm() {
         </Col>
         <Col md={12} sm={24} xs={24}>
           <Form.Item label="Applied at" name="applied_at">
-            <DatePicker style={{ width: '100%' }} format={'DD-MMM-YYYY'} />
+            <DatePicker style={{ width: '100%' }} format={'DD MMM YYYY'} />
           </Form.Item>
         </Col>
       </Row>

@@ -47,6 +47,10 @@ function DatePickerToField({ name }: Prop) {
           rules={[
             {
               validator(rule, value, callback) {
+                if (value) {
+                  form.resetFields([['experience', name, `till`]]);
+                }
+
                 return Promise.resolve();
               },
             },
