@@ -21,6 +21,7 @@ import {
 import { UploadOutlined } from '@ant-design/icons';
 import { useQuery } from '@tanstack/react-query';
 import getData from '../_api/getData';
+import { dateFormate } from '@/app/modules/constant';
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -239,14 +240,14 @@ function PersonalInformationForm() {
                 }}>
                 <Flex vertical>
                   <Typography.Text className="ant-upload-text">
-                    <UploadOutlined /> Drag or Upload Your Resume/CV
+                    <UploadOutlined /> Drag or Upload Your Resume/CV(pdf)
                   </Typography.Text>
                   <Typography.Text
                     style={{
-                      fontSize: '12px',
+                      fontSize: '8px',
                     }}
                     className="ant-upload-text">
-                    PDF file. Upto 1024 KB.
+                    Upto 1024 KB.
                   </Typography.Text>
                 </Flex>
               </Flex>
@@ -258,7 +259,7 @@ function PersonalInformationForm() {
         <Col md={12} sm={24} xs={24}>
           <Form.Item
             name="name"
-            label="Full name"
+            label="Full Name"
             rules={[
               {
                 type: 'string',
@@ -272,7 +273,7 @@ function PersonalInformationForm() {
         <Col md={12} sm={24} xs={24}>
           <Form.Item
             name="reference"
-            label="Reference (if you're referred by any Cefalo employee)">
+            label="Reference (If you're referred by any Cefalo employee)">
             <Input placeholder="Mention his/her full name and designation" />
           </Form.Item>
         </Col>
@@ -313,7 +314,7 @@ function PersonalInformationForm() {
       </Row>
       <Row gutter={50}>
         <Col md={12} sm={24} xs={24}>
-          <Form.Item name="job_id" label="Position applied for">
+          <Form.Item name="job_id" label="Position Applied for">
             <Select
               loading={isLoading}
               showSearch
@@ -336,13 +337,16 @@ function PersonalInformationForm() {
         </Col>
         <Col md={12} sm={24} xs={24}>
           <Form.Item label="Applied at" name="applied_at">
-            <DatePicker style={{ width: '100%' }} format={'DD MMM YYYY'} />
+            <DatePicker style={{ width: '100%' }} format={dateFormate} />
           </Form.Item>
         </Col>
       </Row>
       <Row>
         <Col md={24}>
-          <Form.Item label="Residential Address" name="address">
+          <Form.Item
+            rules={[{ required: true }]}
+            label="Residential Address"
+            name="address">
             <Input.TextArea placeholder="Write as much detail as you can" />
           </Form.Item>
         </Col>

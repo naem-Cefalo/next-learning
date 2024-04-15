@@ -66,7 +66,7 @@ function WorkHistoryForm() {
                                 <Form.Item
                                   name={[name, `position`]}
                                   label="Position">
-                                  <Input placeholder="Position of your employer"></Input>
+                                  <Input placeholder="Designated post"></Input>
                                 </Form.Item>
                               </Col>
                             </Row>

@@ -22,6 +22,7 @@ function DatePickerToField({ name }: Prop) {
 
   const onCheckboxChange = (e: { target: { checked: boolean } }) => {
     setCheckCurrentWork(e.target.checked);
+    form.resetFields([['experience', name, `till`]]);
     if (e.target.checked && !!name) {
       form.setFields([
         {
@@ -58,7 +59,7 @@ function DatePickerToField({ name }: Prop) {
           <DatePicker
             disabledDate={disabledDate}
             onChange={(value) => setFromDateValue(value)}
-            placeholder="Start Date"
+            placeholder="Start month"
             picker="month"
             style={{
               width: '100%',
@@ -77,8 +78,6 @@ function DatePickerToField({ name }: Prop) {
           rules={[
             {
               validator(rule, value, callback) {
-                console.log(fromDateValue);
-
                 if (!fromDateValue) {
                   form.setFields([
                     {
@@ -87,7 +86,7 @@ function DatePickerToField({ name }: Prop) {
                     },
                   ]);
                   return Promise.reject(
-                    Error('Please select starting date first')
+                    Error('Please select starting Month first')
                   );
                 }
                 return Promise.resolve();
@@ -99,7 +98,7 @@ function DatePickerToField({ name }: Prop) {
             disabledDate={disabledDate}
             disabled={checkCurrentWork}
             type="text"
-            placeholder="End Date"
+            placeholder="End month"
             picker="month"
             style={{
               width: '100%',
@@ -116,7 +115,10 @@ function DatePickerToField({ name }: Prop) {
           }}
           valuePropName="checked"
           name={!!name ? [name, 'is_current'] : 'is_current'}>
-          <Checkbox checked={checkCurrentWork} onChange={onCheckboxChange}>
+          <Checkbox
+            disabled={fromDateValue ? false : true}
+            checked={checkCurrentWork}
+            onChange={onCheckboxChange}>
             Currently Working
           </Checkbox>
         </Form.Item>

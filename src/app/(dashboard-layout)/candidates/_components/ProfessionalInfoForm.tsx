@@ -60,7 +60,7 @@ function ProfessionalInfoForm() {
         <Col md={12} xs={24}>
           <Form.Item
             name={'current_employer'}
-            label="Current/Last employer"
+            label="Current/Last Employer"
             rules={[
               {
                 required: true,
@@ -72,9 +72,9 @@ function ProfessionalInfoForm() {
         </Col>
         <Col md={12} xs={24}>
           <Form.Item
-            tooltip="As an example if notice period is 1 month input should be 4"
+            tooltip="For example, if notice period is 1 month, input should be 4"
             name="notice_period"
-            label="Notice period of Current/Last employer"
+            label="Notice Period of Current/Last Employer"
             rules={[
               {
                 required: true,
@@ -100,7 +100,7 @@ function ProfessionalInfoForm() {
         <Col md={12} xs={24}>
           <Form.Item
             name="expected_salary"
-            label="Expected salary"
+            label="Expected Salary"
             rules={[
               {
                 required: true,
@@ -120,7 +120,7 @@ function ProfessionalInfoForm() {
         <Col md={12} xs={24}>
           <Form.Item
             name="experience_period"
-            label="Total experience"
+            label="Total Experience"
             rules={[
               {
                 type: 'integer',
@@ -144,7 +144,7 @@ function ProfessionalInfoForm() {
         <Col md={12} xs={24}>
           <Form.Item
             name={'primary_skills'}
-            label="Primary skills"
+            label="Primary Skills"
             rules={[
               {
                 required: true,
@@ -168,7 +168,7 @@ function ProfessionalInfoForm() {
         <Col md={12} sm={24} xs={24}>
           <Form.Item
             name={'secondary_skills'}
-            label="Secondary skills"
+            label="Secondary Skills"
             rules={[
               {
                 required: true,

@@ -78,7 +78,7 @@ function EducationHistoryForm() {
                             <Col md={12} sm={24} xs={24}>
                               <Form.Item
                                 name={[name, 'passing_year']}
-                                label="Passing year of Degree">
+                                label="Passing Year of Degree">
                                 <Select
                                   showSearch
                                   allowClear

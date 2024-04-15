@@ -28,7 +28,7 @@ function EducationInfoForm() {
                 message: 'Please input the degree',
               },
             ]}>
-            <Input placeholder="Example: CSE,EEE" />
+            <Input placeholder="example: CSE,EEE" />
           </Form.Item>
         </Col>
         <Col md={12} sm={24} xs={24}>
@@ -55,7 +55,7 @@ function EducationInfoForm() {
         <Col md={12} sm={24} xs={24}>
           <Form.Item
             name={'passing_year_hsc_or_equivalent'}
-            label="Passing year of HSC or equivalent"
+            label="Passing Year of HSC or equivalent"
             rules={[
               {
                 required: true,
@@ -63,17 +63,16 @@ function EducationInfoForm() {
               },
               ({ getFieldValue }) => ({
                 validator(_, value) {
-                  if (
-                    !value ||
-                    getFieldValue('bechelor_passing_year') > value
-                  ) {
+                  if (value) {
+                    if (getFieldValue('bechelor_passing_year') < value) {
+                      return Promise.reject(
+                        new Error(
+                          'Bachelor passing year should be greater then HSC'
+                        )
+                      );
+                    }
                     return Promise.resolve();
                   }
-                  return Promise.reject(
-                    new Error(
-                      'Bachelor passing year should be greater then HSC'
-                    )
-                  );
                 },
               }),
             ]}>

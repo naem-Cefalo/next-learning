@@ -20,6 +20,7 @@ import Portfolio from '../_components/Portfolio';
 import { useMutation } from '@tanstack/react-query';
 import postData from '../_api/postData';
 import dayjs from 'dayjs';
+import { dateFormate } from '@/app/modules/constant';
 
 const CandidateCreateForm: React.FC = () => {
   const [form] = Form.useForm();
@@ -31,7 +32,7 @@ const CandidateCreateForm: React.FC = () => {
   });
 
   const initialValues = {
-    applied_at: dayjs(dayjs(), 'DD-MM-YYYY'),
+    applied_at: dayjs(dayjs(), dateFormate),
     experience: [
       {
         employer: '',

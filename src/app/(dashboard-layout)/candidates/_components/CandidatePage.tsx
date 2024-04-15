@@ -5,6 +5,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import Skills from '@/app/shared-components/Skills';
 import type { TableProps } from 'antd';
+import ATSDate from '@/app/shared-components/ATSDate';
 
 const data = [
   {
@@ -378,12 +379,8 @@ const CandidatePage = () => {
       title: 'Applied at',
       dataIndex: 'appliedAt',
       align: 'center',
-      render: (text: { $d: string }) => {
-        return (
-          <Typography.Text>
-            {dayjs(text.$d).format('DD MMM YYYY')}
-          </Typography.Text>
-        );
+      render: (text) => {
+        return <ATSDate date={text}></ATSDate>;
       },
     },
     {
