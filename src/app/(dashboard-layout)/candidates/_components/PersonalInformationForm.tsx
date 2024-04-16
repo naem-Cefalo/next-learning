@@ -155,8 +155,15 @@ function PersonalInformationForm() {
   } = useQuery({
     queryKey: ['jobs'],
     queryFn: () => getData('entities/jobs'),
-    enabled: false,
   });
+
+  const jobData = jobList?.length
+    ? jobList?.map((item: { title: string; id: string }) => ({
+        key: item.id,
+        value: item.id,
+        label: item.title,
+      }))
+    : [];
 
   return (
     <>
@@ -194,7 +201,7 @@ function PersonalInformationForm() {
                       <span>400x400</span>
                       <Typography.Text
                         style={{
-                          fontSize: '8px',
+                          fontSize: '10px',
                         }}
                         className="ant-upload-text">
                         Upto 1024 KB.
@@ -244,7 +251,7 @@ function PersonalInformationForm() {
                   </Typography.Text>
                   <Typography.Text
                     style={{
-                      fontSize: '8px',
+                      fontSize: '10px',
                     }}
                     className="ant-upload-text">
                     Upto 1024 KB.
@@ -318,21 +325,12 @@ function PersonalInformationForm() {
             <Select
               loading={isLoading}
               showSearch
-              onDropdownVisibleChange={(open) => {
-                if (open && !jobList?.length) {
-                  refetch();
-                }
-              }}
               filterOption={(input, option) => {
                 return (option?.label ?? '').toString().includes(input);
               }}
               placeholder="Select position"
               allowClear
-              options={jobList?.map((item: { title: string; id: string }) => ({
-                key: item.id,
-                value: item.id,
-                label: item.title,
-              }))}></Select>
+              options={jobData}></Select>
           </Form.Item>
         </Col>
         <Col md={12} sm={24} xs={24}>

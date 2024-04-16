@@ -94,8 +94,6 @@ const CandidateCreateForm: React.FC = () => {
   ];
 
   const handleSubmit = () => {
-    console.log('sdf');
-
     form
       .validateFields()
       .then((value) => {

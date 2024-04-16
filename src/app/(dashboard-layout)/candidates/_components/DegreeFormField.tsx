@@ -26,9 +26,12 @@ function DegreeFormField({ name }: Prop) {
   };
 
   return (
-    <>
-      <Form.Item label="Degree">
-        <Form.Item name={!!name ? [name, 'degree'] : 'degree'}>
+    <Form.Item label="Degree">
+      <Space.Compact
+        style={{
+          width: '100%',
+        }}>
+        <Form.Item name={!!name ? [name, 'degree'] : 'degree'} noStyle>
           <Select
             allowClear
             placeholder="Select Degree"
@@ -38,30 +41,15 @@ function DegreeFormField({ name }: Prop) {
             options={degrees}
           />
         </Form.Item>
-        <Space.Compact
-          style={{
-            width: '100%',
-          }}>
-          <Form.Item name={!!name ? [name, 'degree'] : 'degree'}>
-            <Select
-              allowClear
-              placeholder="Select Degree"
-              onChange={(value) => {
-                onSelectChange(value, 'degree');
-              }}
-              options={degrees}
-            />
+        {isSelectOtherDegree && (
+          <Form.Item
+            name={!!name ? [name, 'otherDegree'] : 'otherDegree'}
+            noStyle>
+            <Input style={{ width: '100%' }} placeholder="Degree name" />
           </Form.Item>
-          {isSelectOtherDegree && (
-            <Form.Item
-              name={!!name ? [name, 'otherDegree'] : 'otherDegree'}
-              noStyle>
-              <Input style={{ width: '100%' }} placeholder="Degree name" />
-            </Form.Item>
-          )}
-        </Space.Compact>
-      </Form.Item>
-    </>
+        )}
+      </Space.Compact>
+    </Form.Item>
   );
 }
 

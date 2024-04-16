@@ -66,7 +66,7 @@ function EducationHistoryForm() {
                               />
                             </Col>
                             <Col md={12} xs={24}>
-                              <DegreeFormField name={`${name}`} />
+                              <DegreeFormField name={name} />
                             </Col>
                           </Row>
                           <Row gutter={50}>
@@ -83,7 +83,7 @@ function EducationHistoryForm() {
                                   showSearch
                                   allowClear
                                   options={years}
-                                  placeholder="select year"
+                                  placeholder="Select year"
                                 />
                               </Form.Item>
                             </Col>
