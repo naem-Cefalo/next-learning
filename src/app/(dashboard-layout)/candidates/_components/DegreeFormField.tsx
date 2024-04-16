@@ -34,7 +34,7 @@ function DegreeFormField({ name }: Prop) {
         <Form.Item name={!!name ? [name, 'degree'] : 'degree'} noStyle>
           <Select
             allowClear
-            placeholder="Select Degree"
+            placeholder="Select degree"
             onChange={(value) => {
               onSelectChange(value, 'degree');
             }}

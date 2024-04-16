@@ -89,7 +89,7 @@ function EducationHistoryForm() {
                             </Col>
                           </Row>
                           <Form.Item label="Remarks" name={[name, 'remarks']}>
-                            <Input.TextArea placeholder="Additional remarks or notes (optional)" />
+                            <Input.TextArea placeholder="Additional notes (optional)" />
                           </Form.Item>
 
                           {fields.length > 1 && fields.length !== index + 1 && (

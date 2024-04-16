@@ -34,7 +34,7 @@ function EducationInfoForm() {
         <Col md={12} sm={24} xs={24}>
           <Form.Item
             name={'bechelor_passing_year'}
-            label="Passing year (Bachelors or Equivalent)"
+            label="Passing Year (Bachelors or Equivalent)"
             rules={[
               {
                 required: true,
@@ -64,7 +64,7 @@ function EducationInfoForm() {
               ({ getFieldValue }) => ({
                 validator(_, value) {
                   if (value) {
-                    if (getFieldValue('bechelor_passing_year') < value) {
+                    if (getFieldValue('bechelor_passing_year') > value) {
                       return Promise.reject(
                         new Error(
                           'Bachelor passing year should be greater then HSC'

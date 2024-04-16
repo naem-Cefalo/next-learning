@@ -247,7 +247,7 @@ function PersonalInformationForm() {
                 }}>
                 <Flex vertical>
                   <Typography.Text className="ant-upload-text">
-                    <UploadOutlined /> Drag or Upload Your Resume/CV(pdf)
+                    <UploadOutlined /> Drag or Upload Your Resume/CV (pdf)
                   </Typography.Text>
                   <Typography.Text
                     style={{

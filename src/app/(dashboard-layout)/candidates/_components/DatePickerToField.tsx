@@ -59,7 +59,7 @@ function DatePickerToField({ name }: Prop) {
           <DatePicker
             disabledDate={disabledDate}
             onChange={(value) => setFromDateValue(value)}
-            placeholder="Start date"
+            placeholder="Start"
             picker="month"
             style={{
               width: '100%',
@@ -98,7 +98,7 @@ function DatePickerToField({ name }: Prop) {
             disabledDate={disabledDate}
             disabled={checkCurrentWork}
             type="text"
-            placeholder="End date"
+            placeholder="End"
             picker="month"
             style={{
               width: '100%',
