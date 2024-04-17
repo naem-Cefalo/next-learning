@@ -6,6 +6,7 @@ interface TextSummary {
 interface Skill {
   id: number;
   name: string;
+  label: string
 }
 interface SkillsProps {
   skills: Skill[];

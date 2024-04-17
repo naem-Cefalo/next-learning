@@ -205,6 +205,7 @@ function PersonalInformationForm() {
           title: string;
           id: string;
           skills: SkillsProps['skills'];
+          label: string;
         }) => ({
           key: item.id,
           value: item.id,
@@ -374,12 +375,13 @@ function PersonalInformationForm() {
         <Col md={12} sm={24} xs={24}>
           <Form.Item name="job_id" label="Position Applied for">
             <Select
-              onChange={(_, op) => setSkillsData(op.skills)}
+              onSelect={(
+                _,
+                { Skills }: { Skills: SkillsProps['skills']; label: string }
+              ) => setSkillsData(Skills)}
               loading={isLoading}
               showSearch
               filterOption={(input, option) => {
-                console.log(input, option);
-
                 return (option?.label ?? '')
                   .toString()
                   .toLowerCase()
