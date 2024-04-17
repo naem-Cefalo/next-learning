@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Form, Input, Row, Select } from 'antd';
 
 import UniversityField from './UniversityField';
@@ -9,6 +9,7 @@ const years = createArrayFromTo(1955, new Date().getFullYear());
 
 function EducationInfoForm() {
   const from = Form.useFormInstance();
+  const [HSCValue, setHSCValue] = useState();
   return (
     <>
       <Row gutter={50}>
@@ -40,11 +41,31 @@ function EducationInfoForm() {
                 required: true,
                 message: 'Passing year is required',
               },
+              ({ getFieldValue }) => ({
+                validator(_, bachelorYear) {
+                  const HSCYear = getFieldValue(
+                    'passing_year_hsc_or_equivalent'
+                  );
+                  if (HSCYear) {
+                    if (bachelorYear > HSCYear) {
+                      return Promise.resolve();
+                    } else {
+                      return Promise.reject(
+                        new Error(
+                          'Bachelor passing year should be greater then HSC'
+                        )
+                      );
+                    }
+                  }
+                  return Promise.resolve();
+                },
+              }),
             ]}>
             <Select
-              onSelect={(val) => {
-                from.validateFields(['passing_year_hsc_or_equivalent']);
-              }}
+              // onSelect={() => {
+              //   HSCValue &&
+              //     from.validateFields(['passing_year_hsc_or_equivalent']);
+              // }}
               allowClear
               showSearch
               options={years}
@@ -55,28 +76,32 @@ function EducationInfoForm() {
         <Col md={12} sm={24} xs={24}>
           <Form.Item
             name={'passing_year_hsc_or_equivalent'}
-            label="Passing Year of HSC or equivalent"
+            label="Passing Year (HSC or equivalent)"
             rules={[
               {
                 required: true,
                 message: 'Passing year is required',
               },
               ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (value) {
-                    if (getFieldValue('bechelor_passing_year') > value) {
+                validator(_, HSCYear) {
+                  const bachelorYear = getFieldValue('bechelor_passing_year');
+                  if (bachelorYear) {
+                    if (bachelorYear > HSCYear) {
+                      return Promise.resolve();
+                    } else {
                       return Promise.reject(
                         new Error(
-                          'Bachelor passing year should be greater then HSC'
+                          'HSC passing year should be less then Bachelor'
                         )
                       );
                     }
-                    return Promise.resolve();
                   }
+                  return Promise.resolve();
                 },
               }),
             ]}>
             <Select
+              onChange={(val) => setHSCValue(val)}
               allowClear
               showSearch
               options={years}

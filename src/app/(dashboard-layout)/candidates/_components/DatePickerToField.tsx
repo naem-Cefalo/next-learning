@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import { Checkbox, Col, DatePicker, Flex, Form, Row, Typography } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import type { GetProps } from 'antd';
-
-const MonthFormate = 'MMM-YYYY';
+import { MonthFormate } from '@/app/modules/constant';
 
 type RangePickerProps = GetProps<typeof DatePicker.RangePicker>;
 
@@ -103,7 +102,7 @@ function DatePickerToField({ name }: Prop) {
             style={{
               width: '100%',
             }}
-            format={'MMM-YYYY'}
+            format={MonthFormate}
             minDate={dayjs(fromDateValue, MonthFormate)}
           />
         </Form.Item>

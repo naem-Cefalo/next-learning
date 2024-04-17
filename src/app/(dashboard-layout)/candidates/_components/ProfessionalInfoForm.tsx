@@ -4,16 +4,10 @@ import { Col, Form, Input, InputNumber, Row, Select } from 'antd';
 
 import { useQuery } from '@tanstack/react-query';
 import getData from '../_api/getData';
+import { useCandidateStore } from '../_store/candidateStore';
 
-const noticePeriodOption = [
-  { value: 1, label: 'Can start immediately' },
-  { value: 2, label: 'Less than 1 Month' },
-  { value: 3, label: '1 Month' },
-  { value: 4, label: '1.5 Months' },
-  { value: 5, label: '2 Months' },
-  { value: 6, label: 'More than 2 months' },
-];
 function ProfessionalInfoForm() {
+  const skills = useCandidateStore((state) => state.skills);
   const primaryValues = Form.useWatch('primary_skills') || [];
   const secondaryValues = Form.useWatch('secondary_skills') || [];
   const [skillList, setSkillsList] = useState([]);
@@ -53,6 +47,8 @@ function ProfessionalInfoForm() {
 
     setSkillsList(newSkillList);
   };
+
+  console.log(skills);
 
   return (
     <div>
@@ -194,6 +190,33 @@ function ProfessionalInfoForm() {
             />
           </Form.Item>
         </Col>
+      </Row>
+      <Row gutter={50}>
+        {skills?.map((item) => {
+          return (
+            <Col lg={12} xs={24} key={item.id}>
+              <Form.Item
+                label={`Professional Experience in ${item.name}`}
+                rules={[
+                  { required: true, message: 'This field is required' },
+                  {
+                    type: 'integer',
+                    message: 'Not a valid integer',
+                  },
+                ]}
+                name={item.id}>
+                <InputNumber
+                  min={0}
+                  addonAfter="Years"
+                  style={{
+                    width: '100%',
+                  }}
+                  placeholder="Input your experience"
+                />
+              </Form.Item>
+            </Col>
+          );
+        })}
       </Row>
     </div>
   );

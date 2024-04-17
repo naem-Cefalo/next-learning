@@ -5,12 +5,12 @@ import type { GetProp, UploadFile, UploadProps } from 'antd';
 import ImgCrop from 'antd-img-crop';
 
 import {
-  Button,
   Col,
   DatePicker,
   Flex,
   Form,
   Input,
+  InputNumber,
   Modal,
   Row,
   Select,
@@ -22,6 +22,8 @@ import { UploadOutlined } from '@ant-design/icons';
 import { useQuery } from '@tanstack/react-query';
 import getData from '../_api/getData';
 import { dateFormate } from '@/app/modules/constant';
+import { useCandidateStore } from '../_store/candidateStore';
+import { SkillsProps } from '@/app/modules/data-types';
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -38,6 +40,7 @@ const getBase64 = (file: FileType): Promise<string> =>
 
 function PersonalInformationForm() {
   const form = Form.useFormInstance();
+  const setSkillsData = useCandidateStore((state) => state.setSkillsData);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
@@ -62,6 +65,7 @@ function PersonalInformationForm() {
     file,
     fileList: newFileList,
   }) => {
+    console.log(file);
     if (file.response && file.status === 'done') {
       form.setFieldValue('resume', file.response.path);
 
@@ -97,10 +101,12 @@ function PersonalInformationForm() {
     setPdfFileList(newFileList);
   };
 
-  const handleChange: UploadProps['onChange'] = ({
+  const handleChangeImageUpload: UploadProps['onChange'] = ({
     file,
     fileList: newFileList,
   }) => {
+    console.log(file);
+
     if (!file.response) {
       setFileList([]);
       form.setFieldValue('photo', undefined);
@@ -136,14 +142,50 @@ function PersonalInformationForm() {
 
     setFileList(newFileList);
   };
+  const validateImageAspect = async (val: Blob | MediaSource) => {
+    let img = new Image();
+    img.src = URL.createObjectURL(val);
+    await img.decode();
 
-  const beforeUpload = (file: FileType) => {
+    if (img.width < 400 && img.height < 400) {
+      return false;
+    }
+    return true;
+  };
+
+  const validateFileSize = (file: FileType) => {
     const isLt2M = file.size / 1024 / 1024 < 1;
 
-    if (!isLt2M) {
-      message.error('Image must smaller than 1024KB!');
+    return isLt2M;
+  };
+
+  const beforeUploadPdf = (file: FileType) => {
+    const iSValidFileSize = validateFileSize(file);
+    if (!iSValidFileSize) {
+      message.error('File size must be smaller than 1025KB!');
+      return iSValidFileSize || Upload.LIST_IGNORE;
     }
-    return isLt2M || Upload.LIST_IGNORE;
+  };
+
+  const beforeUploadImg = async (file: FileType) => {
+    const isValidImageAspect = await validateImageAspect(file);
+
+    const iSValidFileSize = validateFileSize(file);
+
+    console.log('isSize Valid', iSValidFileSize);
+
+    console.log('Ration Valid', isValidImageAspect);
+
+    if (!iSValidFileSize) {
+      message.error('File size must be smaller than 1025KB!');
+      return false || Upload.LIST_IGNORE;
+    }
+
+    if (!isValidImageAspect) {
+      message.error('Image size is less then 400*400 size');
+      return Upload.LIST_IGNORE || isValidImageAspect;
+    }
+    return true;
   };
 
   const {
@@ -158,11 +200,18 @@ function PersonalInformationForm() {
   });
 
   const jobData = jobList?.length
-    ? jobList?.map((item: { title: string; id: string }) => ({
-        key: item.id,
-        value: item.id,
-        label: item.title,
-      }))
+    ? jobList?.map(
+        (item: {
+          title: string;
+          id: string;
+          skills: SkillsProps['skills'];
+        }) => ({
+          key: item.id,
+          value: item.id,
+          label: item.title,
+          skills: item.skills,
+        })
+      )
     : [];
 
   return (
@@ -180,15 +229,15 @@ function PersonalInformationForm() {
             style={{
               height: '140px',
             }}>
-            <ImgCrop aspect={400 / 400}>
+            <ImgCrop aspect={400 / 400} beforeCrop={validateImageAspect}>
               <Upload
                 // withCredentials
                 headers={{
                   Authorization: 'test ats',
                 }}
                 onPreview={handlePreview}
-                onChange={handleChange}
-                beforeUpload={beforeUpload}
+                onChange={handleChangeImageUpload}
+                beforeUpload={beforeUploadImg}
                 maxCount={1}
                 accept="image/png, image/jpeg"
                 name="image"
@@ -237,7 +286,7 @@ function PersonalInformationForm() {
               name="pdf"
               accept={'.pdf'}
               maxCount={1}
-              beforeUpload={beforeUpload}>
+              beforeUpload={beforeUploadPdf}>
               <Flex
                 justify="center"
                 gap={20}
@@ -295,14 +344,16 @@ function PersonalInformationForm() {
                 required: true,
               },
               {
-                max: 10,
-              },
-              {
                 type: 'integer',
-                transform: (value) => Number(value),
               },
             ]}>
-            <Input prefix="+880" style={{ width: '100%' }} />
+            <InputNumber
+              maxLength={10}
+              minLength={5}
+              min={0}
+              prefix="+880"
+              style={{ width: '100%' }}
+            />
           </Form.Item>
         </Col>
         <Col md={12} sm={24} xs={24}>
@@ -323,10 +374,16 @@ function PersonalInformationForm() {
         <Col md={12} sm={24} xs={24}>
           <Form.Item name="job_id" label="Position Applied for">
             <Select
+              onChange={(_, op) => setSkillsData(op.skills)}
               loading={isLoading}
               showSearch
               filterOption={(input, option) => {
-                return (option?.label ?? '').toString().includes(input);
+                console.log(input, option);
+
+                return (option?.label ?? '')
+                  .toString()
+                  .toLowerCase()
+                  .includes(input.toLowerCase());
               }}
               placeholder="Select position"
               allowClear
