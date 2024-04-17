@@ -65,7 +65,6 @@ function PersonalInformationForm() {
     file,
     fileList: newFileList,
   }) => {
-    console.log(file);
     if (file.response && file.status === 'done') {
       form.setFieldValue('resume', file.response.path);
 
@@ -75,10 +74,10 @@ function PersonalInformationForm() {
           dirty: true,
         })
         .then((val) => {
-          console.log(val);
+          console.debug(val);
         })
         .catch((res) => {
-          console.log(res);
+          console.debug(res);
         });
       message.success('File uploaded successfully!');
     }
@@ -91,10 +90,10 @@ function PersonalInformationForm() {
           dirty: true,
         })
         .then((val) => {
-          console.log(val);
+          console.debug(val);
         })
         .catch((res) => {
-          console.log(res);
+          console.debug(res);
         });
     }
 
@@ -105,8 +104,6 @@ function PersonalInformationForm() {
     file,
     fileList: newFileList,
   }) => {
-    console.log(file);
-
     if (!file.response) {
       setFileList([]);
       form.setFieldValue('photo', undefined);
@@ -120,10 +117,10 @@ function PersonalInformationForm() {
           dirty: true,
         })
         .then((val) => {
-          console.log(val);
+          console.debug(val);
         })
         .catch((res) => {
-          console.log(res);
+          console.debug(res);
         });
       message.success('File uploaded successfully!');
     }
@@ -133,18 +130,25 @@ function PersonalInformationForm() {
       form
         .validateFields(['photo'])
         .then((value) => {
-          console.log(value);
+          console.debug(value);
         })
         .catch((resone) => {
-          console.log('resone', resone);
+          console.debug('resone', resone);
         });
     }
 
     setFileList(newFileList);
   };
-  const validateImageAspect = async (val: Blob | MediaSource) => {
+  const validateImageAspect = async (file: FileType) => {
+    if (
+      file.type !== 'image/jpeg' &&
+      file.type !== 'image/png' &&
+      file.type !== 'image/jpg'
+    ) {
+      return false;
+    }
     let img = new Image();
-    img.src = URL.createObjectURL(val);
+    img.src = URL.createObjectURL(file);
     await img.decode();
 
     if (img.width < 400 && img.height < 400) {
@@ -160,9 +164,13 @@ function PersonalInformationForm() {
   };
 
   const beforeUploadPdf = (file: FileType) => {
+    if (file?.type !== 'application/pdf') {
+      message.error('Only PDF supported');
+      return false || Upload.LIST_IGNORE;
+    }
     const iSValidFileSize = validateFileSize(file);
     if (!iSValidFileSize) {
-      message.error('File size must be smaller than 1025KB!');
+      message.error('File size must be upto 1024kb!');
       return iSValidFileSize || Upload.LIST_IGNORE;
     }
   };
@@ -172,9 +180,14 @@ function PersonalInformationForm() {
 
     const iSValidFileSize = validateFileSize(file);
 
-    console.log('isSize Valid', iSValidFileSize);
-
-    console.log('Ration Valid', isValidImageAspect);
+    if (
+      file.type !== 'image/jpeg' &&
+      file.type !== 'image/png' &&
+      file.type !== 'image/jpg'
+    ) {
+      message.error('Only JPEG,JPG and PNG supported');
+      return Upload.LIST_IGNORE;
+    }
 
     if (!iSValidFileSize) {
       message.error('File size must be smaller than 1025KB!');
@@ -240,7 +253,7 @@ function PersonalInformationForm() {
                 onChange={handleChangeImageUpload}
                 beforeUpload={beforeUploadImg}
                 maxCount={1}
-                accept="image/png, image/jpeg"
+                accept="image/png, image/jpeg, image/jpg"
                 name="image"
                 action={uploadUrl('image')}
                 listType="picture-card">
@@ -248,14 +261,7 @@ function PersonalInformationForm() {
                   <>
                     <Flex vertical align="center">
                       <UploadOutlined />
-                      <span>400x400</span>
-                      <Typography.Text
-                        style={{
-                          fontSize: '10px',
-                        }}
-                        className="ant-upload-text">
-                        Upto 1024 KB.
-                      </Typography.Text>
+                      <span>400*400</span>
                     </Flex>
                   </>
                 )}
@@ -377,8 +383,8 @@ function PersonalInformationForm() {
             <Select
               onSelect={(
                 _,
-                { Skills }: { Skills: SkillsProps['skills']; label: string }
-              ) => setSkillsData(Skills)}
+                { skills }: { skills: SkillsProps['skills']; label: string }
+              ) => setSkillsData(skills)}
               loading={isLoading}
               showSearch
               filterOption={(input, option) => {

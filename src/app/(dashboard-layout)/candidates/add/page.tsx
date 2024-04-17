@@ -103,8 +103,7 @@ const CandidateCreateForm: React.FC = () => {
 
         value.country_code = 'BD';
         value.expected_salary = value.expected_salary.toString();
-        value.phone = `+880${value.phone}`;
-        delete value.applied_at;
+        value.phone = `${value.phone}`;
 
         mutate(value, {
           onSuccess() {

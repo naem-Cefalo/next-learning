@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Checkbox, Col, DatePicker, Flex, Form, Row, Typography } from 'antd';
+import { Checkbox, Col, DatePicker, Form, Row } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import type { GetProps } from 'antd';
 import { MonthFormate } from '@/app/modules/constant';
@@ -74,24 +74,25 @@ function DatePickerToField({ name }: Prop) {
           }}
           name={!!name ? [name, `till`] : 'till'}
           label="To"
-          rules={[
-            {
-              validator(rule, value, callback) {
-                if (!fromDateValue) {
-                  form.setFields([
-                    {
-                      name: ['experience', name, `till`],
-                      value: '',
-                    },
-                  ]);
-                  return Promise.reject(
-                    Error('Please select starting Month first')
-                  );
-                }
-                return Promise.resolve();
-              },
-            },
-          ]}>
+          // rules={[
+          //   {
+          //     validator(rule, value, callback) {
+          //       if (!fromDateValue) {
+          //         form.setFields([
+          //           {
+          //             name: ['experience', name, `till`],
+          //             value: '',
+          //           },
+          //         ]);
+          //         return Promise.reject(
+          //           Error('Please select starting Month first')
+          //         );
+          //       }
+          //       return Promise.resolve();
+          //     },
+          //   },
+          // ]}
+        >
           <DatePicker
             onChange={(val) => setToDateValue(val)}
             disabledDate={disabledDate}
