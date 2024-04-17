@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const http = axios.create({?
+const http = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_BASE_URL}`, // Replace with your API base URL
 });
 
