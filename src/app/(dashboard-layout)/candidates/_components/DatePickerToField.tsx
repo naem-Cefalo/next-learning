@@ -74,25 +74,30 @@ function DatePickerToField({ name }: Prop) {
           }}
           name={!!name ? [name, `till`] : 'till'}
           label="To"
-          // rules={[
-          //   {
-          //     validator(rule, value, callback) {
-          //       if (!fromDateValue) {
-          //         form.setFields([
-          //           {
-          //             name: ['experience', name, `till`],
-          //             value: '',
-          //           },
-          //         ]);
-          //         return Promise.reject(
-          //           Error('Please select starting Month first')
-          //         );
-          //       }
-          //       return Promise.resolve();
-          //     },
-          //   },
-          // ]}
-        >
+          rules={[
+            {
+              validateTrigger: '',
+              required: false,
+              validator(rule, value, callback) {
+                if (!fromDateValue) {
+                  if (value) {
+                    form.setFields([
+                      {
+                        name: ['experience', name, `till`],
+                        value: '',
+                      },
+                    ]);
+                    return Promise.reject(
+                      Error('Please select starting month first')
+                    );
+                  } else {
+                    return Promise.resolve();
+                  }
+                }
+                return Promise.resolve();
+              },
+            },
+          ]}>
           <DatePicker
             onChange={(val) => setToDateValue(val)}
             disabledDate={disabledDate}

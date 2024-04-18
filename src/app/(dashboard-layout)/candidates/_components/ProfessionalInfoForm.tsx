@@ -48,8 +48,6 @@ function ProfessionalInfoForm() {
     setSkillsList(newSkillList);
   };
 
-  console.log(skills);
-
   return (
     <div>
       <Row gutter={50}>
@@ -191,33 +189,51 @@ function ProfessionalInfoForm() {
           </Form.Item>
         </Col>
       </Row>
-      <Row gutter={50}>
-        {skills?.map((item) => {
+      <Form.List name="relevant_experience">
+        {(fields) => {
+          console.log(fields);
+
           return (
-            <Col lg={12} xs={24} key={item.id}>
-              <Form.Item
-                label={`Professional Experience in ${item.name}`}
-                rules={[
-                  { required: true, message: 'This field is required' },
-                  {
-                    type: 'integer',
-                    message: 'Not a valid integer',
-                  },
-                ]}
-                name={item.id}>
-                <InputNumber
-                  min={0}
-                  addonAfter="Years"
-                  style={{
-                    width: '100%',
-                  }}
-                  placeholder="Input your experience"
-                />
-              </Form.Item>
-            </Col>
+            <>
+              {fields.map((field, index) => {
+                return (
+                  // eslint-disable-next-line react/jsx-key
+                  <Row gutter={50} key={index}>
+                    {skills?.map((item) => {
+                      return (
+                        <Col lg={12} xs={24} key={item.id}>
+                          <Form.Item
+                            label={`Professional Experience in ${item.name}`}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'This field is required',
+                              },
+                              {
+                                type: 'integer',
+                                message: 'Not a valid integer',
+                              },
+                            ]}
+                            name={[field.name, `${item.id}`]}>
+                            <InputNumber
+                              min={0}
+                              addonAfter="Years"
+                              style={{
+                                width: '100%',
+                              }}
+                              placeholder="Input your experience"
+                            />
+                          </Form.Item>
+                        </Col>
+                      );
+                    })}
+                  </Row>
+                );
+              })}
+            </>
           );
-        })}
-      </Row>
+        }}
+      </Form.List>
     </div>
   );
 }

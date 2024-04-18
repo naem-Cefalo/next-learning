@@ -10,6 +10,7 @@ const years = createArrayFromTo(1955, new Date().getFullYear());
 function EducationInfoForm() {
   const from = Form.useFormInstance();
   const [HSCValue, setHSCValue] = useState();
+  const [bachelorValue, setBachelorValue] = useState();
   return (
     <>
       <Row gutter={50}>
@@ -46,8 +47,11 @@ function EducationInfoForm() {
                   const HSCYear = getFieldValue(
                     'passing_year_hsc_or_equivalent'
                   );
+
                   if (HSCYear) {
                     if (bachelorYear > HSCYear) {
+                      // from.validateFields(['passing_year_hsc_or_equivalent']);
+                      // from.validateFields(['bechelor_passing_year']);
                       return Promise.resolve();
                     } else {
                       return Promise.reject(
@@ -62,10 +66,11 @@ function EducationInfoForm() {
               }),
             ]}>
             <Select
-              // onSelect={() => {
-              //   HSCValue &&
-              //     from.validateFields(['passing_year_hsc_or_equivalent']);
-              // }}
+              onSelect={() => {
+                HSCValue &&
+                  from.validateFields(['passing_year_hsc_or_equivalent']);
+              }}
+              onChange={(val) => setBachelorValue(val)}
               allowClear
               showSearch
               options={years}
@@ -87,6 +92,8 @@ function EducationInfoForm() {
                   const bachelorYear = getFieldValue('bechelor_passing_year');
                   if (bachelorYear) {
                     if (bachelorYear > HSCYear) {
+                      // from.validateFields(['passing_year_hsc_or_equivalent']);
+                      // from.validateFields(['bechelor_passing_year']);
                       return Promise.resolve();
                     } else {
                       return Promise.reject(
@@ -101,6 +108,9 @@ function EducationInfoForm() {
               }),
             ]}>
             <Select
+              onSelect={() => {
+                bachelorValue && from.validateFields(['bechelor_passing_year']);
+              }}
               onChange={(val) => setHSCValue(val)}
               allowClear
               showSearch

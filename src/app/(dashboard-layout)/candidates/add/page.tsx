@@ -57,6 +57,7 @@ const CandidateCreateForm: React.FC = () => {
         url: '',
       },
     ],
+    relevant_experience: [{}],
   };
 
   const steps = [
@@ -99,11 +100,16 @@ const CandidateCreateForm: React.FC = () => {
       .then((value) => {
         // router.push('/candidates');
 
-        console.log('before modified', value);
-
         value.country_code = 'BD';
         value.expected_salary = value.expected_salary.toString();
         value.phone = `${value.phone}`;
+        value.relevant_experience = Object.entries(
+          value.relevant_experience[0]
+        )?.map((item: any[]) => {
+          return { skill_id: parseInt(item[0]), experience: item[1] };
+        });
+
+        console.log('after modified', value);
 
         mutate(value, {
           onSuccess() {
@@ -132,7 +138,8 @@ const CandidateCreateForm: React.FC = () => {
           layout="vertical"
           initialValues={initialValues}
           onFinishFailed={(errorInfo) => {
-            console.log(errorInfo.values);
+            console.debug(errorInfo.values);
+            // form.scrollToField(errorInfo.values[0]);
           }}
           onFinish={handleSubmit}>
           {steps.map((item, index) => {

@@ -238,6 +238,7 @@ function PersonalInformationForm() {
             rules={[
               {
                 required: true,
+                message: 'Image required',
               },
             ]}
             style={{
@@ -262,6 +263,7 @@ function PersonalInformationForm() {
                     <Flex vertical align="center">
                       <UploadOutlined />
                       <span>400*400</span>
+                      <span>px</span>
                     </Flex>
                   </>
                 )}
