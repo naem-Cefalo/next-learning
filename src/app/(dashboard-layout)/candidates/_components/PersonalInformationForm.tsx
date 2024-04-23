@@ -21,9 +21,9 @@ import {
 import { UploadOutlined } from '@ant-design/icons';
 import { useQuery } from '@tanstack/react-query';
 import getData from '../_api/getData';
-import { dateFormate } from '@/app/modules/constant';
+import { dateFormate } from '@/modules/constant';
 import { useCandidateStore } from '../_store/candidateStore';
-import { SkillsProps } from '@/app/modules/data-types';
+import { SkillsProps } from '@/modules/data-types';
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -260,10 +260,9 @@ function PersonalInformationForm() {
                 listType="picture-card">
                 {fileList.length >= 1 ? null : (
                   <>
-                    <Flex vertical align="center">
+                    <Flex vertical align="center" justify="end" gap={10}>
                       <UploadOutlined />
                       <span>400*400</span>
-                      <span>px</span>
                     </Flex>
                   </>
                 )}
@@ -383,6 +382,7 @@ function PersonalInformationForm() {
         <Col md={12} sm={24} xs={24}>
           <Form.Item name="job_id" label="Position Applied for">
             <Select
+              onClear={() => setSkillsData([])}
               onSelect={(
                 _,
                 { skills }: { skills: SkillsProps['skills']; label: string }

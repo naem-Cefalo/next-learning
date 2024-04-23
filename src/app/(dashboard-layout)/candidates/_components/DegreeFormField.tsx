@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import { Form, Input, Select, Space } from 'antd';
 
 const degrees = [
-  { label: 'Bachelors', value: 'Bachelors' },
-  { label: 'Masters', value: 'Masters' },
-  { label: 'Diploma', value: 'Diploma' },
+  { label: 'Bachelors', value: 'bachelors' },
+  { label: 'Masters', value: 'masters' },
+  { label: 'Diploma', value: 'diploma' },
 ];
 
 type Prop = {
@@ -34,6 +34,12 @@ function DegreeFormField({ name }: Prop) {
         <Form.Item name={!!name ? [name, 'degree'] : 'degree'} noStyle>
           <Select
             allowClear
+            showSearch
+            filterOption={(input, option) => {
+              return (
+                option?.label?.toString().toLocaleLowerCase() ?? ''
+              ).includes(input);
+            }}
             placeholder="Select degree"
             onChange={(value) => {
               onSelectChange(value, 'degree');

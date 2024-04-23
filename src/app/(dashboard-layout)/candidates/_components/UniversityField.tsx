@@ -19,12 +19,9 @@ function UniversityField({
     isLoading,
     error,
     data: universityList,
-    isFetching,
-    refetch,
   } = useQuery({
     queryKey: ['universities'],
     queryFn: () => getData('entities/universities'),
-    enabled: false,
   });
 
   const onSelectChange = (value: string, fieldName: string) => {
@@ -52,11 +49,6 @@ function UniversityField({
             },
           ]}>
           <Select
-            onDropdownVisibleChange={(open) => {
-              if (open) {
-                refetch();
-              }
-            }}
             style={{
               width: isSelectOtherUniversity ? '40%' : '100%',
             }}

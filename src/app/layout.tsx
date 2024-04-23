@@ -1,5 +1,5 @@
 import { AntdRegistry } from '@ant-design/nextjs-registry';
-import ReactQueryWrapper from './shared-components/ReactQuery';
+import ReactQueryWrapper from '../shared-components/ReactQuery';
 import './global.css';
 
 export default function RootLayout({

@@ -1,10 +1,6 @@
-import MainLayout from '../shared-components/MainLayout';
+import MainLayout from '../../shared-components/MainLayout';
 
 function DashboardLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <div>
-      <MainLayout>{children}</MainLayout>
-    </div>
-  );
+  return <MainLayout>{children}</MainLayout>;
 }
 export default DashboardLayout;

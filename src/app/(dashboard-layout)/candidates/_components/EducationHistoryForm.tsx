@@ -14,7 +14,7 @@ import {
 } from 'antd';
 import UniversityField from './UniversityField';
 import { PlusOutlined } from '@ant-design/icons';
-import { createArrayFromTo } from '@/app/lib/utils';
+import { createArrayFromTo } from '@/lib/createArrayFromTo';
 import DegreeFormField from './DegreeFormField';
 
 const years = createArrayFromTo(1955, new Date().getFullYear());
@@ -66,7 +66,7 @@ function EducationHistoryForm() {
                               />
                             </Col>
                             <Col md={12} xs={24}>
-                              <DegreeFormField name={name} />
+                              <DegreeFormField name={`${name}`} />
                             </Col>
                           </Row>
                           <Row gutter={50}>

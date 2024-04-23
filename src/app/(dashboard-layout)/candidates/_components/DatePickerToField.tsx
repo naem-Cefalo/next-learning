@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Checkbox, Col, DatePicker, Form, Row } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import type { GetProps } from 'antd';
-import { MonthFormate } from '@/app/modules/constant';
+import { MonthFormate } from '@/modules/constant';
 
 type RangePickerProps = GetProps<typeof DatePicker.RangePicker>;
 
@@ -73,31 +73,7 @@ function DatePickerToField({ name }: Prop) {
             span: '24',
           }}
           name={!!name ? [name, `till`] : 'till'}
-          label="To"
-          rules={[
-            {
-              validateTrigger: '',
-              required: false,
-              validator(rule, value, callback) {
-                if (!fromDateValue) {
-                  if (value) {
-                    form.setFields([
-                      {
-                        name: ['experience', name, `till`],
-                        value: '',
-                      },
-                    ]);
-                    return Promise.reject(
-                      Error('Please select starting month first')
-                    );
-                  } else {
-                    return Promise.resolve();
-                  }
-                }
-                return Promise.resolve();
-              },
-            },
-          ]}>
+          label="To">
           <DatePicker
             onChange={(val) => setToDateValue(val)}
             disabledDate={disabledDate}

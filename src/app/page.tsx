@@ -2,7 +2,7 @@
 import { Col, Row } from 'antd';
 import Title from 'antd/es/typography/Title';
 import React from 'react';
-import isAuth from './shared-components/Auth';
+import isAuth from '../shared-components/Auth';
 
 function Home() {
   return (

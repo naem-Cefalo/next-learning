@@ -1,8 +1,17 @@
 'use client';
-import React from 'react';
+import { Button, Result } from 'antd';
 
-function GlobalError() {
-  return <div>GlobalError...opppss....</div>;
-}
+const BoundaryError: React.FC = () => (
+  <Result
+    status="500"
+    title="500"
+    subTitle="Sorry, something went wrong."
+    extra={
+      <Button href="/candidates" type="primary">
+        Back Home
+      </Button>
+    }
+  />
+);
 
-export default GlobalError;
+export default BoundaryError;

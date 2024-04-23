@@ -15,11 +15,11 @@ import {
   Table,
 } from 'antd';
 import { FileAddOutlined } from '@ant-design/icons';
-import Skills from '../../shared-components/Skills';
+import Skills from '../../../shared-components/Skills';
 import { useEffect, useState } from 'react';
 import getJobs, { JobQueryParams } from '../jobs/_api/getJobs';
-import TextSummary from '../../shared-components/TextSummary';
-import ATSDate from '../../shared-components/ATSDate';
+import TextSummary from '../../../shared-components/TextSummary';
+import ATSDate from '../../../shared-components/ATSDate';
 import debounce from '../../../utils/helpers/debounce';
 import { jobFilters, jobStatus } from '@/utils/constants/jobs';
 

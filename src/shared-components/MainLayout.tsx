@@ -10,7 +10,7 @@ import {
 } from '@ant-design/icons';
 import { Affix, Breadcrumb, Col, Layout, Menu, Row, theme } from 'antd';
 import Link from 'next/link';
-import logo from '../../../public/logo.png';
+import logo from '../../public/logo.png';
 const { Header, Sider, Content, Footer } = Layout;
 
 import type { MenuProps } from 'antd';

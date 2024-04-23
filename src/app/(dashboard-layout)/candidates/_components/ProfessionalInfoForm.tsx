@@ -178,11 +178,6 @@ function ProfessionalInfoForm() {
               onChange={(value) => {
                 handleOnchangeSkill(value, 'secondary');
               }}
-              // onDropdownVisibleChange={(open) => {
-              //   if (open && !skillList?.length) {
-              //     refetch();
-              //   }
-              // }}
               filterOption={handleFilter}
               options={options}
             />
@@ -191,8 +186,6 @@ function ProfessionalInfoForm() {
       </Row>
       <Form.List name="relevant_experience">
         {(fields) => {
-          console.log(fields);
-
           return (
             <>
               {fields.map((field, index) => {

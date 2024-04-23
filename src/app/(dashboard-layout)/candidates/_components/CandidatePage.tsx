@@ -1,355 +1,21 @@
 'use client';
-import { Button, Col, Flex, Row, Table, Typography } from 'antd';
+import {
+  Button,
+  Col,
+  Dropdown,
+  Flex,
+  Row,
+  Space,
+  Table,
+  Typography,
+} from 'antd';
 import { useRouter } from 'next/navigation';
-import { PlusOutlined } from '@ant-design/icons';
-import dayjs from 'dayjs';
-import Skills from '@/app/shared-components/Skills';
-import type { TableProps } from 'antd';
-import ATSDate from '@/app/shared-components/ATSDate';
-
-const data = [
-  {
-    name: 'Azman Amin Azman',
-    appliedAt: '7 MAR 2024',
-    status: 'HR Interview Scheduled',
-    jobTitle: 'Sr. Software Test Enginee',
-    experience: '3 years',
-    primarySkill: [
-      {
-        id: 126,
-        name: 'Software Testing',
-      },
-      {
-        id: 127,
-        name: 'Manual Testing',
-      },
-      {
-        id: 128,
-        name: 'Test Automation',
-      },
-      {
-        id: 129,
-        name: 'API Testing',
-      },
-      {
-        id: 130,
-        name: 'Performance Testing',
-      },
-    ],
-    employer: 'Cefalo home company',
-    university: 'BUET',
-  },
-  {
-    name: 'Azman Amin Azman',
-    appliedAt: '7 MAR 2024',
-    status: 'HR Interview Scheduled',
-    jobTitle: 'Sr. Software Test Enginee',
-    experience: '3 years',
-    primarySkill: [
-      {
-        id: 126,
-        name: 'Software Testing',
-      },
-      {
-        id: 127,
-        name: 'Manual Testing',
-      },
-      {
-        id: 128,
-        name: 'Test Automation',
-      },
-      {
-        id: 129,
-        name: 'API Testing',
-      },
-      {
-        id: 130,
-        name: 'Performance Testing',
-      },
-    ],
-    employer: 'Cefalo home company',
-    university: 'BUET',
-  },
-  {
-    name: 'Azman Amin Azman',
-    appliedAt: '7 MAR 2024',
-    status: 'HR Interview Scheduled',
-    jobTitle: 'Sr. Software Test Enginee',
-    experience: '3 years',
-    primarySkill: [
-      {
-        id: 126,
-        name: 'Software Testing',
-      },
-      {
-        id: 127,
-        name: 'Manual Testing',
-      },
-      {
-        id: 128,
-        name: 'Test Automation',
-      },
-      {
-        id: 129,
-        name: 'API Testing',
-      },
-      {
-        id: 130,
-        name: 'Performance Testing',
-      },
-    ],
-    employer: 'Cefalo home company',
-    university: 'BUET',
-  },
-  {
-    name: 'Azman Amin Azman',
-    appliedAt: '7 MAR 2024',
-    status: 'HR Interview Scheduled',
-    jobTitle: 'Sr. Software Test Enginee',
-    experience: '3 years',
-    primarySkill: [
-      {
-        id: 126,
-        name: 'Software Testing',
-      },
-      {
-        id: 127,
-        name: 'Manual Testing',
-      },
-      {
-        id: 128,
-        name: 'Test Automation',
-      },
-      {
-        id: 129,
-        name: 'API Testing',
-      },
-      {
-        id: 130,
-        name: 'Performance Testing',
-      },
-    ],
-    employer: 'Cefalo home company',
-    university: 'BUET',
-  },
-  {
-    name: 'Azman Amin Azman',
-    appliedAt: '7 MAR 2024',
-    status: 'HR Interview Scheduled',
-    jobTitle: 'Sr. Software Test Enginee',
-    experience: '3 years',
-    primarySkill: [
-      {
-        id: 126,
-        name: 'Software Testing',
-      },
-      {
-        id: 127,
-        name: 'Manual Testing',
-      },
-      {
-        id: 128,
-        name: 'Test Automation',
-      },
-      {
-        id: 129,
-        name: 'API Testing',
-      },
-      {
-        id: 130,
-        name: 'Performance Testing',
-      },
-    ],
-    employer: 'Cefalo home company',
-    university: 'BUET',
-  },
-  {
-    name: 'Azman Amin Azman',
-    appliedAt: '7 MAR 2024',
-    status: 'HR Interview Scheduled',
-    jobTitle: 'Sr. Software Test Enginee',
-    experience: '3 years',
-    primarySkill: [
-      {
-        id: 126,
-        name: 'Software Testing',
-      },
-      {
-        id: 127,
-        name: 'Manual Testing',
-      },
-      {
-        id: 128,
-        name: 'Test Automation',
-      },
-      {
-        id: 129,
-        name: 'API Testing',
-      },
-      {
-        id: 130,
-        name: 'Performance Testing',
-      },
-    ],
-    employer: 'Cefalo home company',
-    university: 'BUET',
-  },
-  {
-    name: 'Azman Amin Azman',
-    appliedAt: '7 MAR 2024',
-    status: 'HR Interview Scheduled',
-    jobTitle: 'Sr. Software Test Enginee',
-    experience: '3 years',
-    primarySkill: [
-      {
-        id: 126,
-        name: 'Software Testing',
-      },
-      {
-        id: 127,
-        name: 'Manual Testing',
-      },
-      {
-        id: 128,
-        name: 'Test Automation',
-      },
-      {
-        id: 129,
-        name: 'API Testing',
-      },
-      {
-        id: 130,
-        name: 'Performance Testing',
-      },
-    ],
-    employer: 'Cefalo home company',
-    university: 'BUET',
-  },
-  {
-    name: 'Azman Amin Azman',
-    appliedAt: '7 MAR 2024',
-    status: 'HR Interview Scheduled',
-    jobTitle: 'Sr. Software Test Enginee',
-    experience: '3 years',
-    primarySkill: [
-      {
-        id: 126,
-        name: 'Software Testing',
-      },
-      {
-        id: 127,
-        name: 'Manual Testing',
-      },
-      {
-        id: 128,
-        name: 'Test Automation',
-      },
-      {
-        id: 129,
-        name: 'API Testing',
-      },
-      {
-        id: 130,
-        name: 'Performance Testing',
-      },
-    ],
-    employer: 'Cefalo home company',
-    university: 'BUET',
-  },
-  {
-    name: 'Azman Amin Azman',
-    appliedAt: '7 MAR 2024',
-    status: 'HR Interview Scheduled',
-    jobTitle: 'Sr. Software Test Enginee',
-    experience: '3 years',
-    primarySkill: [
-      {
-        id: 126,
-        name: 'Software Testing',
-      },
-      {
-        id: 127,
-        name: 'Manual Testing',
-      },
-      {
-        id: 128,
-        name: 'Test Automation',
-      },
-      {
-        id: 129,
-        name: 'API Testing',
-      },
-      {
-        id: 130,
-        name: 'Performance Testing',
-      },
-    ],
-    employer: 'Cefalo home company',
-    university: 'BUET',
-  },
-  {
-    name: 'Azman Amin Azman',
-    appliedAt: '7 MAR 2024',
-    status: 'HR Interview Scheduled',
-    jobTitle: 'Sr. Software Test Enginee',
-    experience: '3 years',
-    primarySkill: [
-      {
-        id: 126,
-        name: 'Software Testing',
-      },
-      {
-        id: 127,
-        name: 'Manual Testing',
-      },
-      {
-        id: 128,
-        name: 'Test Automation',
-      },
-      {
-        id: 129,
-        name: 'API Testing',
-      },
-      {
-        id: 130,
-        name: 'Performance Testing',
-      },
-    ],
-    employer: 'Cefalo home company',
-    university: 'BUET',
-  },
-  {
-    name: 'Azman Amin Azman',
-    appliedAt: '7 MAR 2024',
-    status: 'HR Interview Scheduled',
-    jobTitle: 'Sr. Software Test Enginee',
-    experience: '3 years',
-    primarySkill: [
-      {
-        id: 126,
-        name: 'Software Testing',
-      },
-      {
-        id: 127,
-        name: 'Manual Testing',
-      },
-      {
-        id: 128,
-        name: 'Test Automation',
-      },
-      {
-        id: 129,
-        name: 'API Testing',
-      },
-      {
-        id: 130,
-        name: 'Performance Testing',
-      },
-    ],
-    employer: 'Cefalo home company',
-    university: 'BUET',
-  },
-];
+import { PlusOutlined, CaretDownOutlined } from '@ant-design/icons';
+import Skills from '@/shared-components/Skills';
+import type { MenuProps, TableProps } from 'antd';
+import ATSDate from '@/shared-components/ATSDate';
+import { useQuery } from '@tanstack/react-query';
+import getData from '../_api/getData';
 
 const CandidatePage = () => {
   const router = useRouter();
@@ -373,11 +39,10 @@ const CandidatePage = () => {
     {
       title: 'Name',
       dataIndex: 'name',
-      align: 'center',
     },
     {
       title: 'Applied at',
-      dataIndex: 'appliedAt',
+      dataIndex: 'updated_at',
       align: 'center',
       render: (text) => {
         return <ATSDate date={text}></ATSDate>;
@@ -390,17 +55,25 @@ const CandidatePage = () => {
     },
     {
       title: 'Job Title',
-      dataIndex: 'jobTitle',
+      dataIndex: 'job_id',
       align: 'center',
     },
     {
       title: 'Experience',
-      dataIndex: 'experience',
+      dataIndex: 'experience_period',
       align: 'center',
     },
     {
-      title: 'Primary Skill',
-      dataIndex: 'primarySkill',
+      title: 'Primary Skills',
+      dataIndex: 'primary_skills',
+      align: 'center',
+      render: (skills: []) => {
+        return <Skills skills={skills} />;
+      },
+    },
+    {
+      title: 'Relevant Experiences',
+      dataIndex: 'relevant_experiences',
       width: 280,
       align: 'center',
       // TODO: type module should be sharable
@@ -408,7 +81,7 @@ const CandidatePage = () => {
         return <Skills skills={skills} />;
       },
     },
-    { title: 'Employer', dataIndex: 'employer', align: 'center' },
+    { title: 'Employer', dataIndex: 'current_employer', align: 'center' },
     {
       title: 'University',
       dataIndex: 'university',
@@ -416,39 +89,107 @@ const CandidatePage = () => {
     },
   ];
 
-  // const { isPending, error, data, isFetching } = useQuery({
-  //   queryKey: ['candidates'],
-  //   queryFn: getCandidates,
-  // });
+  const {
+    isLoading: isCandidateLoading,
+    error: CandidateError,
+    data: CandidateList,
+  } = useQuery({
+    queryKey: ['candidates'],
+    queryFn: () => getData('candidates'),
+  });
 
-  // const dynamicData = await fetch(
-  //   `https://jsonplaceholder.typicode.com/users`,
-  //   { cache: 'no-store' }
-  // );
-  // const promisData = await dynamicData.json();
-  // console.log(dynamicData);
+  console.log(CandidateList);
+
+  const { isLoading: isSkillLoading, data: skillList } = useQuery({
+    queryKey: ['skills'],
+    queryFn: () => getData('entities/skills'),
+  });
+
+  const {
+    isLoading: isJobLoading,
+    error: JobError,
+    data: jobList,
+    refetch,
+  } = useQuery({
+    queryKey: ['jobs'],
+    queryFn: () => getData('entities/jobs'),
+  });
+
+  const itemsJob: MenuProps['items'] = jobList?.map(
+    (item: { id: string; title: string }) => {
+      return {
+        key: item.id,
+        label: item.title,
+      };
+    }
+  );
+  const itemsSkill: MenuProps['items'] = skillList?.map(
+    (item: { id: string; name: string }) => {
+      return {
+        key: item.id,
+        label: item.name,
+      };
+    }
+  );
+  // jobList?.map((item) => {
+  //   return {
+  //     key: item.id,
+  //     label: item.title,
+  //   };
+  // });
 
   return (
     <Row justify="center">
       <Col md={22}>
         <Row
-          justify="end"
+          justify="space-between"
           style={{
-            marginBottom: '30px',
-          }}>
+            marginBottom: '20px',
+          }}
+          gutter={20}>
           <Col>
-            <Flex justify="end">
-              <Button
-                icon={<PlusOutlined />}
-                onClick={() => {
-                  router.push('candidates/add');
+            <Space>
+              <Dropdown menu={{ items: itemsJob }} trigger={['click']} arrow>
+                <Button>
+                  <Space>
+                    Jobs
+                    <CaretDownOutlined />
+                  </Space>
+                </Button>
+              </Dropdown>
+              <Dropdown
+                menu={{ items: itemsSkill }}
+                trigger={['click']}
+                arrow
+                overlayStyle={{
+                  maxHeight: '400px',
+                  height: '200px',
                 }}>
-                Create Candidate{' '}
-              </Button>
-            </Flex>
+                <Button>
+                  <Space>
+                    Skills
+                    <CaretDownOutlined />
+                  </Space>
+                </Button>
+              </Dropdown>
+            </Space>
+          </Col>
+          <Col>
+            <Button
+              icon={<PlusOutlined />}
+              onClick={() => {
+                router.push('candidates/add');
+              }}>
+              Create Candidate{' '}
+            </Button>
           </Col>
         </Row>
-        <Table columns={columns} dataSource={data} size="middle" />
+        <Table
+          loading={isCandidateLoading}
+          columns={columns}
+          dataSource={CandidateList}
+          size="middle"
+        />
       </Col>
     </Row>
   );

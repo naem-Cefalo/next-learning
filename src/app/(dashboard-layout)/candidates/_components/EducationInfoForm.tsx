@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Col, Form, Input, Row, Select } from 'antd';
 
 import UniversityField from './UniversityField';
-import { createArrayFromTo } from '@/app/lib/utils';
+import { createArrayFromTo } from '@/lib/createArrayFromTo';
 
 const years = createArrayFromTo(1955, new Date().getFullYear());
 
@@ -35,41 +35,30 @@ function EducationInfoForm() {
         </Col>
         <Col md={12} sm={24} xs={24}>
           <Form.Item
+            required
             name={'bechelor_passing_year'}
             label="Passing Year (Bachelors or Equivalent)"
             rules={[
-              {
-                required: true,
-                message: 'Passing year is required',
-              },
               ({ getFieldValue }) => ({
                 validator(_, bachelorYear) {
                   const HSCYear = getFieldValue(
                     'passing_year_hsc_or_equivalent'
                   );
-
-                  if (HSCYear) {
-                    if (bachelorYear > HSCYear) {
-                      // from.validateFields(['passing_year_hsc_or_equivalent']);
-                      // from.validateFields(['bechelor_passing_year']);
-                      return Promise.resolve();
-                    } else {
-                      return Promise.reject(
-                        new Error(
-                          'Bachelor passing year should be greater then HSC'
-                        )
-                      );
-                    }
+                  if (!bachelorYear) {
+                    return Promise.reject(new Error('This field is required'));
+                  } else if (bachelorYear <= HSCYear) {
+                    return Promise.reject(
+                      new Error(
+                        'Bachelor passing year should be greater then HSC'
+                      )
+                    );
+                  } else {
+                    return Promise.resolve();
                   }
-                  return Promise.resolve();
                 },
               }),
             ]}>
             <Select
-              onSelect={() => {
-                HSCValue &&
-                  from.validateFields(['passing_year_hsc_or_equivalent']);
-              }}
               onChange={(val) => setBachelorValue(val)}
               allowClear
               showSearch
@@ -80,37 +69,26 @@ function EducationInfoForm() {
         </Col>
         <Col md={12} sm={24} xs={24}>
           <Form.Item
+            required
             name={'passing_year_hsc_or_equivalent'}
             label="Passing Year (HSC or equivalent)"
             rules={[
-              {
-                required: true,
-                message: 'Passing year is required',
-              },
               ({ getFieldValue }) => ({
                 validator(_, HSCYear) {
                   const bachelorYear = getFieldValue('bechelor_passing_year');
-                  if (bachelorYear) {
-                    if (bachelorYear > HSCYear) {
-                      // from.validateFields(['passing_year_hsc_or_equivalent']);
-                      // from.validateFields(['bechelor_passing_year']);
-                      return Promise.resolve();
-                    } else {
-                      return Promise.reject(
-                        new Error(
-                          'HSC passing year should be less then Bachelor'
-                        )
-                      );
-                    }
+                  if (!HSCYear) {
+                    return Promise.reject(new Error('This field is required'));
+                  } else if (bachelorYear <= HSCYear) {
+                    return Promise.reject(
+                      new Error('HSC passing year should be less then bachelor')
+                    );
+                  } else {
+                    return Promise.resolve();
                   }
-                  return Promise.resolve();
                 },
               }),
             ]}>
             <Select
-              onSelect={() => {
-                bachelorValue && from.validateFields(['bechelor_passing_year']);
-              }}
               onChange={(val) => setHSCValue(val)}
               allowClear
               showSearch

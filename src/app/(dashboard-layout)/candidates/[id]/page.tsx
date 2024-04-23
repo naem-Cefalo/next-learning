@@ -56,7 +56,7 @@ const options: SelectProps['options'] = [
   },
 ];
 
-function CandidateIdPage({ params }: { params: { id: number | string } }) {
+function CandidateDetailsPage({ params }: { params: { id: number | string } }) {
   const [review, setReview] = useState(1);
 
   console.log(params.id);
@@ -98,6 +98,7 @@ function CandidateIdPage({ params }: { params: { id: number | string } }) {
       direction="vertical"
       style={{
         width: '100%',
+        padding: '20px',
       }}
       size="large">
       <Card bordered={false}>
@@ -198,4 +199,4 @@ function CandidateIdPage({ params }: { params: { id: number | string } }) {
   );
 }
 
-export default CandidateIdPage;
+export default CandidateDetailsPage;

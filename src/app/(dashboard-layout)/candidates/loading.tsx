@@ -1,6 +1,14 @@
 'use client';
+import { Col, Row, Spin } from 'antd';
+
 const DashBoardLoading = () => {
-  return <div>DashBoardloading....</div>;
+  return (
+    <Row justify="center" align="middle">
+      <Col>
+        <Spin size="large" />
+      </Col>
+    </Row>
+  );
 };
 
 export default DashBoardLoading;

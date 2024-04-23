@@ -1,4 +1,4 @@
-import { SkillsProps } from '@/app/modules/data-types';
+import { SkillsProps } from '@/modules/data-types';
 import { create } from 'zustand';
 
 type State = {
