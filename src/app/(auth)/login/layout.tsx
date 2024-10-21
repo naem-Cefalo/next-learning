@@ -2,7 +2,7 @@ export const metadata = {
   openGraph: {
     title: 'Next.js',
     description: 'The React Framework for the Web',
-    url: 'https://next-learning-2l73co1n2-naem-cefalos-projects.vercel.app',
+    url: 'https://next-learning-mu.vercel.app/login',
     siteName: 'Next.js',
     images: [
       {
